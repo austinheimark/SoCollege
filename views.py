@@ -132,7 +132,7 @@ def signout(page="Sign out"):
     session.pop('username', None)
     return render_template('signout.html', page=page)
 
-@app.route("newpost")
+@app.route("/newpost")
 def newpost(page="New Post"):
     #make sure the user is logged in
     if not session.get('username'):
