@@ -117,6 +117,12 @@ def signin_authenticate():
     flash('Incorrect username password combination.')
     return redirect(url_for('signin'))
 
+@app.route("/signout")
+def signout(page="Sign out"):
+    #pop the session
+    session.pop('username', None)
+    return render_template('signout.html', page=page)
+
 
 #unauthorized
 @app.errorhandler(401)

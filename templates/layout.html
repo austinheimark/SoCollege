@@ -3,6 +3,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<title>{% if page %}{{page}}&nbsp;&ndash;&nbsp;{% endif %}So College</title>
 </head>
 <body style="padding-top: 50px;">
@@ -20,7 +21,14 @@
 		<ul class="nav navbar-nav">
 			<li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
 		</ul>
+		{% if 'username' in session %}
+		<div class="navbar-right">
+			<p class="navbar-text"><i class="icon-user"></i>&nbsp;{{session['username']}}</p>
+			<a class="btn btn-default navbar-btn" href="{{ url_for('signout') }}">Sign out</a>
+		</div>
+		{% else %}
 		<a class="btn btn-default navbar-btn navbar-right" href="{{ url_for('signin') }}">Sign in</a>
+		{% endif %}
 	</div><!--/.navbar-collapse-->
 </div></nav>
 <div class="container">
