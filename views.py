@@ -82,6 +82,7 @@ def signin_authenticate():
     if request.form['username'] is instance.username and request.form['password'] is instance.password:
         return redirect(url_for('dashboard'))
 
+    flash('Incorrect username-password combination!')
     return redirect(url_for('signin'))
     #set the session information
 
