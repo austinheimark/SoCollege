@@ -138,6 +138,7 @@ def newpost(page="New Post"):
     if not session.get('username'):
         abort(401)
 
+    return render_template('newpost.html')
 
 #unauthorized
 @app.errorhandler(401)
