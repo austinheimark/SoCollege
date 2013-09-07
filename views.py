@@ -13,11 +13,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import sqlalchemy.orm
 import os, sys, hashlib
 import sqlite3
-<<<<<<< Updated upstream
 import datetime
-=======
 import requests
->>>>>>> Stashed changes
 
 app = Flask(__name__)
 app.debug = True
@@ -126,7 +123,7 @@ def oauth_authorized():
     session['venmo_token'] = access_token
     session['venmo_username'] = user['username']
 
-    flash("'You were signed in as %s' % user['username']")
+    flash("You were signed")
     return redirect(url_for('dashboard'))
 
 @app.route("/signin")
