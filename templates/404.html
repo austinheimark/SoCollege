@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1>Sorry, this page doesn't exist!</h1>
-	<h4><a href="{{ url_for('home') }}"></a></h4>
+<div class="page-header"><h1>404&nbsp;Not Found</h1></div>
+<p class="lead">The requested URL was not found on this server.</p>
+<div class="alert alert-danger"><a class="alert-link" href="javascript:history.back()">Go back</a> and try again.</div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1>Sorry, you can't go here!</h1>
-	<h4><a href="{{ url_for('home') }}"></a></h4>
+<div class="page-header"><h1>401&nbsp;Unauthorised</h1></div>
+<p class="lead">This server could not verify that you are authorised to access your account, or your browser doesn't understand how to supply the credentials required.</p>
+<div class="alert alert-danger"><a class="alert-link" href="{{ url_for('signin') }}">Go back to check your username and password</a> and try again.</div>
 {% endblock %}
