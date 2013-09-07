@@ -64,6 +64,8 @@ def signup_authenticate():
     #check the databse to make sure that this user and email has not registered before
     check_username = User.query.filter_by(username=request.form['username']).first()
     check_email = User.query.filter_by(email=request.form['email']).first()
+    password = request.form['password']
+    password_verification = request.form['verification']
 
     # print check_username.username
     if check_username is not None:
@@ -77,6 +79,9 @@ def signup_authenticate():
     #verify that the email is .edu
 
     #make sure the password matches the password verification
+    if password != password_verification:
+        flash('Passwords do not match')
+        return redirect(url_for('signup'))
 
     encrypted = hashlib.sha1(request.form['password'])
 
