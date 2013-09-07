@@ -41,7 +41,7 @@ def home():
 @app.route("/dashboard")
 def dashboard(page="Dashboard"):
     #ensure that the user is logged in
-    if not session.get('logged_in'):
+    if not session.get('username'):
         abort(401)
 
     return render_template('dashboard.html', page=page)
@@ -86,7 +86,7 @@ def signup_authenticate():
     flash('You successfully signed up')
 
     #will need to set the session information so that the user is logged in here
-    session['logged_in'] = True
+    session['username'] = request.form['username']
 
     #flash('You successfully registered for this website!')
     return redirect(url_for('dashboard'))
