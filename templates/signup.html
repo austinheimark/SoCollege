@@ -1,13 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-
-	<form method="post" action="/signup/authenticate">
-		Username: <input type="text" name="username"><br><br>
-		Email: <input type="text" name="email"><br><br>		
-		Password: <input type="text" name="password"><br><br>
-		Password verification: <input type="text" name="verification"><br>
-		Where will the image go?
-		<button type="submit">Create user</button>
-	</form>
-
+<div class="page-header"><h1>Sign up</h1></div>
+<div class="row"><form role="form" method="post" action="/signup/authenticate" class="col-lg-3 col-md-4 col-sm-5">
+	<div class="form-group">
+		<label>Email address</label>
+		<input type="email" class="form-control" name="email" placeholder="Enter your email address">
+	</div>
+	<div class="form-group">
+		<label>Username</label>
+		<input type="text" class="form-control" name="username" placeholder="Enter your username">
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" class="form-control" name="password" placeholder="Enter a password">
+	</div>
+	<div class="form-group">
+		<label>Confirm password</label>
+		<input type="password" class="form-control" name="verification" placeholder="Enter password again">
+	</div>
+	<button type="submit" class="btn btn-lg btn-primary btn-block">Create your account</button>
+</form></div>
 {% endblock %}
