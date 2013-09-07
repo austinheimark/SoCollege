@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="container">
+		<div class="profile">
+			<h3>My Homepage</h3>
+			<ul class="info">
+				<li><strong>Name</strong></li>
+				<li><small>School</small></li>
+			</ul>
+		</div>
+		<div class="main">
+			<table border="1">
+				<tr>
+					<th>Recipe</th>
+					<th>Rating</th>
+					<th>Price</th>
+					<th>Skill (out of 10)</th>
+				</tr>
+				<tr>
+					<td>Rice</td>
+					<td># of stars</td>
+					<td>$1.50</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>Beans</td>
+					<td># of stars</td>
+					<td>$3.00</td>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>Soup</td>
+					<td># of stars</td>
+					<td>$4.50</td>
+					<td>6</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+{% endblock %}
