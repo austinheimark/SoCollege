@@ -65,17 +65,25 @@ def signup_authenticate():
     db.session.add(new_user)
     db.session.commit()
 
+    #will need to set the session information so that the user is logged in here
+
     #flash('You successfully registered for this website!')
-    return redirect(url_for('home'))
+    return redirect(url_for('dashboard'))
 
 @app.route("/signin")
 def signin():
     return render_template('signin.html')
 
-@app.route("/signin/authenticate")
+@app.route("/signin/authenticate", methods=['POST'])
 def signin_authenticate():
     #search the User table for the entered email
+    instance = User.query.get(request.form['username'])
     
+    if request.form['username'] is instance.username and request.form['password'] is instance.password:
+        return redirect(url_for('dashboard'))
+
+    return redirect(url_for('signin'))
+    #set the session information
 
 
 #unauthorized
