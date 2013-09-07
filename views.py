@@ -5,7 +5,8 @@ from flask import (
     url_for,
     request,
     session,
-    flash
+    flash,
+    abort
     )
 from flask.ext.sqlalchemy import SQLAlchemy
 import sqlalchemy.orm
@@ -33,16 +34,6 @@ class User(db.Model):
         self.email = email
         self.password = password
 
-# session table
-# class SessionPair(db.Model):
-#     key = db.Column(db.String,primary_key=True)
-#     value = db.Column(db.String)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.username'))
-
-#     def __init__(self, key, value):
-#         self.key = key
-#         self.value = value
-
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -50,6 +41,8 @@ def home():
 @app.route("/dashboard")
 def dashboard(page="Dashboard"):
     #ensure that the user is logged in
+    if not session.get('logged_in'):
+        abort(401)
 
     return render_template('dashboard.html', page=page)
 
@@ -93,6 +86,7 @@ def signup_authenticate():
     flash('You successfully signed up')
 
     #will need to set the session information so that the user is logged in here
+    session['logged_in'] = True
 
     #flash('You successfully registered for this website!')
     return redirect(url_for('dashboard'))
@@ -114,6 +108,7 @@ def signin_authenticate():
     #make sure the password is correct
     if entered_username == instance.username and encrypted_pass == instance.password:       
         #set the session information
+        session['logged_in'] = True
 
         flash('You successfully signed in!')
         return redirect(url_for('dashboard'))
@@ -121,7 +116,6 @@ def signin_authenticate():
     #password and username must be incorrect
     flash('Incorrect username password combination.')
     return redirect(url_for('signin'))
-
 
 
 #unauthorized
