@@ -4,10 +4,13 @@ from flask import (
     redirect,
     url_for,
     request,
-    session
+    session,
+    g
     )
 from flask.ext.sqlalchemy import SQLAlchemy
+import sqlalchemy.orm
 import os, sys, hashlib
+import sqlite3
 
 app = Flask(__name__)
 app.debug = True
@@ -78,14 +81,23 @@ def signin(page="Sign in"):
 @app.route("/signin/authenticate", methods=['POST'])
 def signin_authenticate():
     #search the User table for the entered email
-    instance = User.query.get(request.form['username'])
-    
-    if request.form['username'] is instance.username and request.form['password'] is instance.password:
+    entered_username = request.form['username']
+    entered_pass = request.form['password']
+
+    instance = User.query.get(entered_username)
+
+    #make sure the password is correct
+    if entered_username == instance.username and entered_pass == instance.password:
+        # print entered_pass, entered_username, instance.username, instance.password
+        
+        #set the session information
+
+
         return redirect(url_for('dashboard'))
 
-    flash('Incorrect username-password combination!')
+    #password and username must be incorrect
     return redirect(url_for('signin'))
-    #set the session information
+
 
 
 #unauthorized
@@ -101,3 +113,4 @@ def not_found(error):
 
 if __name__ == "__main__":
     app.run()
+
