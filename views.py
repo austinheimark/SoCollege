@@ -27,6 +27,7 @@ class User(db.Model):
     username = db.Column(db.String, primary_key=True)
     email = db.Column(db.String)
     password = db.Column(db.String)
+    posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
     def __init__(self,username,email,password):
         self.username = username
@@ -34,19 +35,13 @@ class User(db.Model):
         self.password = password
 
 #posts table
-class Posts(db.Model):
+class Post(db.Model):
     title = db.Column(db.String, primary_key=True)
     description = db.Column(db.String)
     pay = db.Column(db.String)
     location = db.Column(db.String)
     date = db.Column(db.String)
-
-    def __init__(self,title,description,pay,location,date):    
-        self.title = title
-        self.description = descriptioin
-        self.pay = pay
-        self.location = location
-        self.date = date
+    user = db.Column(db.Integer, db.ForeignKey('user.username'))
 
 @app.route("/")
 def home():
@@ -136,6 +131,13 @@ def signout(page="Sign out"):
     #pop the session
     session.pop('username', None)
     return render_template('signout.html', page=page)
+
+@app.route("newpost")
+def newpost(page="New Post"):
+    #make sure the user is logged in
+    if not session.get('username'):
+        abort(401)
+
 
 #unauthorized
 @app.errorhandler(401)
