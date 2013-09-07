@@ -108,7 +108,7 @@ def signin_authenticate():
     #make sure the password is correct
     if entered_username == instance.username and encrypted_pass == instance.password:       
         #set the session information
-        session['logged_in'] = True
+        session['username'] = instance.username
 
         flash('You successfully signed in!')
         return redirect(url_for('dashboard'))
