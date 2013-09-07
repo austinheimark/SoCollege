@@ -13,7 +13,18 @@
   </head>
 
   <body>
-
+    <div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+            {% for message in messages %}
+              <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+    
     <div>
       {% block content %}
       {% endblock %}

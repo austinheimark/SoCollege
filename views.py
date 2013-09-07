@@ -4,10 +4,25 @@ from flask import (
     redirect,
     url_for
     )
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.debug = True
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db = SQLAlchemy(app)
 
+#user table
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
 
 @app.route("/")
 def home():
@@ -19,7 +34,36 @@ def dashboard():
 
     return render_template('dashboard.html')
 
+@app.route("/signup")
+def signup():
+    return render_template('signup.html')
 
+@app.route("/signup/authenticate")
+def signup_authenticate():
+    #make sure all the form entry fields are there
+
+    #check the databse to make sure that this user and email has not registered before
+    # check_username = User.query.get(request.form['username'])
+    # if check_username:
+    #     flash('That username has been used.')
+    #     return red irect(url_for('signup'))
+
+    # check_email = User.query.get(request.form['email'])
+    # if check_email:
+    #     flash('That email has been used.')
+    #     return redirect(url_for('signup'))
+
+    #verify that the email is .edu
+
+    #make sure the password matches the password verification
+
+    #add the user to the database
+    new_user = User(request.form['username'], request.form['email'], request.form['password'])    
+    db.session.add(new_user)
+    db.session.commit()
+
+    flash('You successfully registered for this website!')
+    return redirect(url_for('dashboard'))
 
 #unauthorized
 @app.errorhandler(401)
