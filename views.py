@@ -11,6 +11,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import sqlalchemy.orm
 import os, sys, hashlib
 import sqlite3
+import datetime
 
 app = Flask(__name__)
 app.debug = True
@@ -25,11 +26,22 @@ class User(db.Model):
     username = db.Column(db.String, primary_key=True)
     email = db.Column(db.String)
     password = db.Column(db.String)
+    # session = db.relationship('SessionPair', backref='user', lazy='dynamic')
 
-    def __init__(self, username, email, password):
+    def __init__(self,username,email,password):
         self.username = username
         self.email = email
         self.password = password
+
+# session table
+# class SessionPair(db.Model):
+#     key = db.Column(db.String,primary_key=True)
+#     value = db.Column(db.String)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.username'))
+
+#     def __init__(self, key, value):
+#         self.key = key
+#         self.value = value
 
 @app.route("/")
 def home():
@@ -66,8 +78,11 @@ def signup_authenticate():
 
     #make sure the password matches the password verification
 
+    encrypted = hashlib.sha1(request.form['password'])
+
+
     #add the user to the database
-    new_user = User(request.form['username'], request.form['email'], request.form['password'])    
+    new_user = User(request.form['username'], request.form['email'], encrypted.hexdigest())    
     db.session.add(new_user)
     db.session.commit()
     flash('You successfully signed up')
@@ -85,14 +100,14 @@ def signin(page="Sign in"):
 def signin_authenticate():
     #search the User table for the entered email
     entered_username = request.form['username']
-    entered_pass = request.form['password']
+    entered_pass = hashlib.sha1(request.form['password'])
+
+    encrypted_pass = entered_pass.hexdigest()
 
     instance = User.query.get(entered_username)
 
     #make sure the password is correct
-    if entered_username == instance.username and entered_pass == instance.password:
-        # print entered_pass, entered_username, instance.username, instance.password
-        
+    if entered_username == instance.username and encrypted_pass == instance.password:       
         #set the session information
 
         flash('You successfully signed in!')
