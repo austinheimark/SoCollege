@@ -27,12 +27,26 @@ class User(db.Model):
     username = db.Column(db.String, primary_key=True)
     email = db.Column(db.String)
     password = db.Column(db.String)
-    # session = db.relationship('SessionPair', backref='user', lazy='dynamic')
 
     def __init__(self,username,email,password):
         self.username = username
         self.email = email
         self.password = password
+
+#posts table
+class Posts(db.Model):
+    title = db.Column(db.String, primary_key=True)
+    description = db.Column(db.String)
+    pay = db.Column(db.String)
+    location = db.Column(db.String)
+    date = db.Column(db.String)
+
+    def __init__(self,title,description,pay,location,date):    
+        self.title = title
+        self.description = descriptioin
+        self.pay = pay
+        self.location = location
+        self.date = date
 
 @app.route("/")
 def home():
@@ -116,7 +130,6 @@ def signin_authenticate():
     #password and username must be incorrect
     flash('Incorrect username password combination.')
     return redirect(url_for('signin'))
-
 
 #unauthorized
 @app.errorhandler(401)
