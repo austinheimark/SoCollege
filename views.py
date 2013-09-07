@@ -32,14 +32,14 @@ def home():
     return render_template('home.html')
 
 @app.route("/dashboard")
-def dashboard():
+def dashboard(page="Dashboard"):
     #ensure that the user is logged in
 
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', page=page)
 
 @app.route("/signup")
-def signup():
-    return render_template('signup.html')
+def signup(page="Sign up"):
+    return render_template('signup.html', page=page)
 
 @app.route("/signup/authenticate", methods=['POST'])
 def signup_authenticate():
@@ -71,8 +71,8 @@ def signup_authenticate():
     return redirect(url_for('dashboard'))
 
 @app.route("/signin")
-def signin():
-    return render_template('signin.html')
+def signin(page="Sign in"):
+    return render_template('signin.html', page=page)
 
 @app.route("/signin/authenticate", methods=['POST'])
 def signin_authenticate():

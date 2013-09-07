@@ -2,11 +2,7 @@
 <html>
 <head>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-	{% if page %}
-	<title>{{page}}&nbsp;&ndash;&nbsp;So College</title>
-	{% else %}
-	<title>So College</title>
-	{% endif %}
+	<title>{% if page %}{{page}}&nbsp;&ndash;&nbsp;{% endif %}So College</title>
 </head>
 <body>
 <div class="container">
