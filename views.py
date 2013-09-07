@@ -99,6 +99,7 @@ def signin_authenticate():
         return redirect(url_for('dashboard'))
 
     #password and username must be incorrect
+    flash('Incorrect username password combination.')
     return redirect(url_for('signin'))
 
 
