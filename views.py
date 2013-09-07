@@ -5,7 +5,7 @@ from flask import (
     url_for,
     request,
     session,
-    g
+    flash
     )
 from flask.ext.sqlalchemy import SQLAlchemy
 import sqlalchemy.orm
@@ -50,15 +50,17 @@ def signup_authenticate():
     #make sure all the form entry fields are there
 
     #check the databse to make sure that this user and email has not registered before
-    # check_username = User.query.get(request.form['username'])
-    # if check_username:
-    #     flash('That username has been used.')
-    #     return red irect(url_for('signup'))
+    check_username = User.query.filter_by(username=request.form['username']).first()
+    check_email = User.query.filter_by(email=request.form['email']).first()
 
-    # check_email = User.query.get(request.form['email'])
-    # if check_email:
-    #     flash('That email has been used.')
-    #     return redirect(url_for('signup'))
+    # print check_username.username
+    if check_username is not None:
+        flash('That username has been used.')
+        return redirect(url_for('signup'))
+
+    if check_email is not None:
+        flash('That email has been used.')
+        return redirect(url_for('signup'))
 
     #verify that the email is .edu
 
@@ -68,6 +70,7 @@ def signup_authenticate():
     new_user = User(request.form['username'], request.form['email'], request.form['password'])    
     db.session.add(new_user)
     db.session.commit()
+    flash('You successfully signed up')
 
     #will need to set the session information so that the user is logged in here
 
@@ -92,7 +95,7 @@ def signin_authenticate():
         
         #set the session information
 
-
+        flash('You successfully signed in!')
         return redirect(url_for('dashboard'))
 
     #password and username must be incorrect
