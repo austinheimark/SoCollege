@@ -3,27 +3,18 @@
 <head>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 	{% if page %}
-	<title>So College | {{page}}</title>
+	<title>{{page}}&nbsp;&ndash;&nbsp;So College</title>
 	{% else %}
 	<title>So College</title>
 	{% endif %}
-	<link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
-<div>
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-		<ul>
-			{% for message in messages %}
-			<li><strong>{{ message }}</strong></li>
-			{% endfor %}
-		</ul>
-		{% endif %}
-	{% endwith %}
-</div>
-<div>
-	{% block content %}
-	{% endblock %}
+<div class="container">
+{% with messages = get_flashed_messages() %}
+	{% if messages %}{% for message in messages %}<div class="alert alert-info">{{ message }}</div>{% endfor %}{% endif %}
+{% endwith %}
+{% block content %}
+{% endblock %}
 </div>
 <!--JavaScript at the bottom for faster loading-->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
