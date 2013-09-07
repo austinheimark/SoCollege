@@ -2,12 +2,15 @@ from flask import (
     Flask, 
     render_template,
     redirect,
-    url_for
+    url_for,
+    request
     )
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.debug = True
+app.secret_key = 'something'
+app.config.from_object(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
@@ -15,8 +18,8 @@ db = SQLAlchemy(app)
 #user table
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True)
-    email = db.Column(db.String, unique=True)
+    username = db.Column(db.String)
+    email = db.Column(db.String)
     password = db.Column(db.String)
 
     def __init__(self, username, email, password):
@@ -38,7 +41,7 @@ def dashboard():
 def signup():
     return render_template('signup.html')
 
-@app.route("/signup/authenticate")
+@app.route("/signup/authenticate", methods=['POST'])
 def signup_authenticate():
     #make sure all the form entry fields are there
 
@@ -62,8 +65,8 @@ def signup_authenticate():
     db.session.add(new_user)
     db.session.commit()
 
-    flash('You successfully registered for this website!')
-    return redirect(url_for('dashboard'))
+    #flash('You successfully registered for this website!')
+    return render_template('dashboard.html')
 
 #unauthorized
 @app.errorhandler(401)
