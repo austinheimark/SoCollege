@@ -44,7 +44,7 @@ class Post(db.Model):
     location = db.Column(db.String)
     date = db.Column(db.String)
     author_id = db.Column(db.String, db.ForeignKey('user.username'))
-
+git
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -169,7 +169,7 @@ def signout(page="Sign out"):
     session.pop('venmo_token', None)
     return render_template('signout.html', page=page)
 
-@app.route("/newpost", methods=['POST'])
+@app.route("/newpost")
 def newpost(page="New Post"):
     #make sure the user is logged in
     if not session.get('username'):
