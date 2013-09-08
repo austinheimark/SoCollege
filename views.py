@@ -44,7 +44,6 @@ class Post(db.Model):
     location = db.Column(db.String)
     date = db.Column(db.String)
     author_id = db.Column(db.String, db.ForeignKey('user.username'))
-git
 @app.route("/")
 def home():
     return render_template('home.html')
