@@ -209,7 +209,7 @@ def newpost_authentication():
 #unauthorized
 @app.errorhandler(401)
 def unauthorized_page(error):
-    return render_template('401.htmgl'), 401
+    return render_template('401.html'), 401
 
 #not found
 @app.errorhandler(404)
