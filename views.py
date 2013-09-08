@@ -149,6 +149,10 @@ def signin_authenticate():
 
     instance = User.query.get(entered_username)
 
+    if not instance:
+        flash("That username hasn't been registered")
+        return redirect(url_for('signin'))
+
     #make sure the password is correct
     if entered_username == instance.username and encrypted_pass == instance.password:       
         #set the session information
