@@ -43,8 +43,8 @@
 							<td>{{ post.date }}</td>
 							<td>{{ post.the_user }}</td>
 							<td>
-								<form method="post" action="">
-									<input type="hidden" value="{{ post.title }}" name="post-interested">
+								<form method="post" action="/accept_offer">
+									<input type="hidden" value="{{ id_number }}" name="post-interested">
 									<button class="btn btn-xs btn-primary" type="submit">Yes</button>
 								</form>
 							</td>
@@ -69,10 +69,14 @@
 					<tr>
 						<td>{{ post.title }}</td>
 						<td>{{ post.date }}</td>
-						<td>					
+						<td>
+							<form method="post" action="#">
+								<input type="hidden" value="" name="pay">
+								<button class="btn btn-xs btn-primary" type="submit">Pay</button>
+							</form>
 							<form method="post" action="deletepost/authenticate">
 								<input type="hidden" value="{{ post.title }}" name="post-delete">
-								<button class="btn btn-xs btn-primary" type="submit">Delete</button>
+								<button class="btn btn-xs" type="submit">Delete</button>
 							</form>
 						</td>
 					</tr>
