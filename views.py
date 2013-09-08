@@ -57,6 +57,8 @@ def dashboard(page="Dashboard"):
         abort(401)
 
     posts = Post.query.all()
+    user_posts = Post.query.filter_by(the_user=session.get('username'))
+
     username = session.get('venmo_username')
     name = session.get('venmo_name')
     firstname = session.get('venmo_firstname')
@@ -67,7 +69,7 @@ def dashboard(page="Dashboard"):
     balance = session.get('venmo_balance')
     id_number = session.get('venmo_id')
 
-    return render_template('dashboard.html', page=page, posts=posts, username=username, name=name, firstname=firstname, lastname=lastname, picture=picture, email=email, phone=phone, balance=balance, id_number=id_number)
+    return render_template('dashboard.html', user_posts=user_posts, page=page, posts=posts, username=username, name=name, firstname=firstname, lastname=lastname, picture=picture, email=email, phone=phone, balance=balance, id_number=id_number)
 
 @app.route("/signup")
 def signup(page="Sign up"):
@@ -225,15 +227,6 @@ def editprofile():
 
     return render_template('editprofile.html', page='Edit Profile')
 
-@app.route("/deletepost")
-def deletepost():
-    if not session.get('username'):
-        abort(401)
-    
-    posts = Post.query.filter_by(the_user=session.get('username'))
-
-    return render_template('deletepost.html', page='Delete post', posts=posts)
-
 @app.route("/deletepost/authenticate", methods=['POST'])
 def deletepost_authenticate():
     if not session.get('username'):
@@ -244,7 +237,7 @@ def deletepost_authenticate():
     db.session.commit()
 
     flash('Image successfully deleted!')
-    return redirect(url_for('editprofile'))
+    return redirect(url_for('dashboard'))
 
 #unauthorized
 @app.errorhandler(401)
