@@ -1,1 +1,6 @@
 -PennApps Fall 2013 web application
+-Called...MerpIt
+-Built for college students by college students
+-Uses the Flask microframework, Twitter Bootstrap, SQLAlchemy, SQLite
+-PennApps video demo:
+	-http://www.youtube.com/watch?v=YH7_gCFr_Bg
