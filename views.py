@@ -131,7 +131,6 @@ def signup_authenticate():
 
     # redirect user to venmo login
     if session.get('venmo_token'):
-        flash("You have successfully logged into your Venmo, %s" % session.get('venmo_token'))
         return redirect(url_for('dashboard'))
     else:
         return redirect('https://api.venmo.com/oauth/authorize?client_id=%s&scope=make_payments,access_profile&response_type=code' % CONSUMER_KEY)
@@ -266,6 +265,13 @@ def accept_offer():
 
     flash('Succesful deal!')
     return redirect(url_for('dashboard'))
+
+@app.route("/pay_customer", methods=['POST'])
+def pay_customer():
+    instance = Deal.query.get(request.form['title'])
+    print instance.post_title
+    print instance.id_number
+    return redirect('https://venmo.com/?txn=Pay&recipients='+str(instance.id_number)+'&amount='+instance.post_title+'&note=Payed%20from%20MerpIt')
 
 @app.route("/delete_profile", methods=['POST'])
 def delete_profile():
