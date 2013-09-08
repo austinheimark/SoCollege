@@ -44,9 +44,10 @@
 							<td>{{ post.the_user }}</td>
 							<td>
 								<form method="post" action="/accept_offer">
-									<input type="hidden" value="{{ id_number }}" name="id_number">
-									<input type="hidden" value="{{ name }}" name="name">
-									<input type="hidden" value="{{ post.title }}" name="title">
+									<input type="hidden" value="{{ id_number }}" name="customer_id">
+									<input type="hidden" value="{{ name }}" name="customer_username">
+									<input type="hidden" value="{{ post.title }}" name="post_title">
+									<input type="hidden" value="{{ post.pay }}" name="pay">
 									<button class="btn btn-xs btn-primary" type="submit">Yes</button>
 								</form>
 							</td>

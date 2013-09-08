@@ -46,6 +46,19 @@ class Post(db.Model):
     the_user = db.Column(db.String)
     author_id = db.Column(db.String, db.ForeignKey('user.username'))
 
+#deals table
+class Deal(db.Model):
+    id_number = db.Column(db.Integer, primary_key=True)
+    employer = db.Column(db.String)
+    post_title = db.Column(db.String)
+    pay = db.Column(db.String)
+
+    def __init__(self,id_number,employer,post_title,pay):
+        self.id_number = id_number
+        self.employer = employer
+        self.post_title = post_title
+        self.pay = pay
+
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -245,10 +258,21 @@ def deletepost_authenticate():
 
 @app.route("/accept_offer", methods=['POST'])
 def accept_offer():
-    customer = request.form['id_number']
-    name = request.form['name']
-    title = request.form['title']
+    customer_id = request.form['customer_id']
+    customer_username = request.form['customer_username']
+    post_title = request.form['post_title']
+    pay = request.form['pay']
 
+    the_deal = Deal(customer_id,customer_username,post_title,pay)
+    db.session.add(the_deal)
+    db.session.commit()
+
+    #now, complete the venmo transaction
+
+
+
+    flash('Succesful deal!')
+    return redirect(url_for('dashboard'))
 
 @app.route("/delete_profile", methods=['POST'])
 def delete_profile():
@@ -259,11 +283,7 @@ def delete_profile():
 #     if not session.get('username'):
 #         abort(401)
 
-<<<<<<< Updated upstream
 #     return render_template('user.html',page=session.get('username'))
-=======
-#     return render_template('user.html',user=session.get('username'))
->>>>>>> Stashed changes
 
 #unauthorized
 @app.errorhandler(401)
