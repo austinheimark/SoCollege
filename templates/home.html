@@ -2,8 +2,19 @@
 {% block content %}
 <div class="jumbotron text-center">
 	<h1>Introducing MerpIt!</h1>
-	<a class="btn btn-lg btn-primary" href="{{ url_for('signin') }}">Sign in</a>
-	<a class="btn btn-lg btn-primary" href="{{ url_for('signup') }}">Sign up</a>
+	<h3>Made for college students, by college students.</h3>
+		<ul>
+			<li>Are you a college student? Do you need quick cash?</li>
+			<li>MerpIt helps you find work!</li>
+			<li>Whether you want work, or need work, MerpIt is the place for you.</li>
+			<li>And because it's mostly college students, you can trust the labor!</li>
+			<li>Register and start earning cash, now!</li>
+		</ul>
+
+	{% if 'username' not in session %}
+		<a class="btn btn-lg btn-primary" href="{{ url_for('signin') }}">Sign in</a>
+		<a class="btn btn-lg btn-primary" href="{{ url_for('signup') }}">Sign up</a>
+	{% endif %}
 
 </div>
 {% endblock %}
