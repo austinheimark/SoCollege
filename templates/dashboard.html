@@ -1,8 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="row">
-	<aside class="col-lg-3" style="background-color: cyan;">
-		<h2>Profile card</h2>
+	<aside class="col-lg-3 text-center">
+		<figure class="thumbnail">
+			<img src="{{ picture }}" alt="Profile picture">
+			<figcaption class="caption">
+				<h3>{{ name }}</h3>
+				<dl>
+					<dt>Email</dt>
+					<dd>{{ email }}</dd>
+					<dt>Phone</dt>
+					<dd>{{ phone }}</dd>
+					<dt>Balance</dt>
+					<dd>{{ balance }}</dd>
+				</dl>
+			</figcaption>
+		</figure>
 	</aside>
 	<div class="col-lg-9">
 		<ul class="nav nav-pills">
