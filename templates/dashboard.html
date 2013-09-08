@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="page-header"><h1>Dashboard</h1></div>
 <div class="row">
 	<aside class="col-lg-3 text-center">
 		<figure class="thumbnail">
@@ -32,19 +33,21 @@
 						<th>Date</th>
 						<th>User</th>
 					</tr>
+					{% if posts %}
+					{% for post in posts %}
 					<tr>
-						{% if posts %}
-						{% for post in posts %}
 						<td>{{ post.title }}</td>
 						<td>{{ post.description }}</td>
 						<td>{{ post.pay }}</td>
 						<td>{{ post.date }}</td>
 						<td>{{ post.the_user }}</td>
-						{% endfor %}
-						{% else %}
-						<td colspan="5" class="text-center">No entries found.</td>
-						{% endif %}
 					</tr>
+					{% endfor %}
+					{% else %}
+					<tr>
+						<td colspan="5" class="text-center">No entries found.</td>
+					</tr>
+					{% endif %}
 				</table>
 			</div>
 			<div class="pill-pane" id="Responses">
