@@ -22,11 +22,9 @@
 		<ul class="nav navbar-nav">
 			<li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
 			<li><a href="{{ url_for('newpost') }}">New Post</a></li>
-			<li><a href="{{ url_for('editprofile') }}">Edit Profile</a></li>
-
 		</ul>
 		<div class="navbar-right">
-			<p class="navbar-text"><a class="navbar-link" href="{{ url_for('editprofile') }}"><i class="icon-user"></i>&nbsp;{{session['username']}}</a></p>
+			<p class="navbar-text"><a class="navbar-link" href="{{ url_for('dashboard') }}"><i class="icon-user"></i>&nbsp;{{session['username']}}</a></p>
 			<a class="btn btn-default navbar-btn" href="{{ url_for('signout') }}">Sign out</a>
 		</div>
 		{% else %}

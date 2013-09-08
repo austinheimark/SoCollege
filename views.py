@@ -237,13 +237,6 @@ def newpost_authentication():
     flash('Post successfully added!')
     return redirect(url_for('dashboard'))
 
-@app.route("/editprofile")
-def editprofile():
-    if not session.get('username'):
-        abort(401)
-
-    return render_template('editprofile.html', page='Edit Profile')
-
 @app.route("/deletepost/authenticate", methods=['POST'])
 def deletepost_authenticate():
     if not session.get('username'):
