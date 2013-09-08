@@ -1,21 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
-		<div class="profile">
-			<h3>My Homepage</h3>
-			<ul class="info">
-				<li><strong>Name</strong></li>
-				<li><small>School</small></li>
-			</ul>
-		</div>
-	<div class="main">
-	{% for post in posts %}
-		<h1>{{ post.title }}</h1>
-		<p>{{ post.description }}</p>
-		<ul>
-			<li>Date: {{ post.date }}</li>
-			<li>Location: {{ post.location }}</li>
-			<li>Pay: {{ post.pay }}</li>
+<div class="row">
+	<aside class="col-lg-3" style="background-color: cyan;">
+		<h2>Profile card</h2>
+	</aside>
+	<div class="col-lg-9">
+		<ul class="nav nav-pills">
+			<li class="active"><a href="#Merps" data-toggle="pill">Merps</a></li>
+			<li><a href="#Responses" data-toggle="pill">Responses</a></li>
 		</ul>
-	{% endfor %}
+		<div class="pill-content">
+			<div class="pill-pane active table-responsive" id="Merps">
+				<table class="table">
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Pay</th>
+						<th>Date</th>
+						<th>User</th>
+					</tr>
+					<tr>
+						{% if posts %}
+						{% for post in posts %}
+						<td>{{ post.title }}</td>
+						<td>{{ post.description }}</td>
+						<td>{{ post.pay }}</td>
+						<td>{{ post.date }}</td>
+						<td>{{ post.the_user }}</td>
+						{% endfor %}
+						{% else %}
+						<td colspan="5" class="text-center">No entries found.</td>
+						{% endif %}
+					</tr>
+				</table>
+			</div>
+			<div class="pill-pane" id="Responses">
+				<p>Responses!</p>
+			</div>
+		</div>
 	</div>
+</div>
 {% endblock %}
