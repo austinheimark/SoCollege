@@ -48,9 +48,9 @@ class Post(db.Model):
 
 #deals table
 class Deal(db.Model):
-    id_number = db.Column(db.Integer, primary_key=True)
+    id_number = db.Column(db.Integer)
     employer = db.Column(db.String)
-    post_title = db.Column(db.String)
+    post_title = db.Column(db.String, primary_key=True)
     pay = db.Column(db.String)
 
     def __init__(self,id_number,employer,post_title,pay):
