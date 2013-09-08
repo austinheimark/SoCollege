@@ -105,7 +105,11 @@ def signup_authenticate():
 
 
     #add the user to the database
-    new_user = User(request.form['username'], request.form['email'], encrypted.hexdigest())    
+    new_user = User(
+        request.form['username'], 
+        request.form['email'], 
+        encrypted.hexdigest()
+        )    
     db.session.add(new_user)
     db.session.commit()
 
@@ -255,7 +259,11 @@ def delete_profile():
 #     if not session.get('username'):
 #         abort(401)
 
+<<<<<<< Updated upstream
 #     return render_template('user.html',page=session.get('username'))
+=======
+#     return render_template('user.html',user=session.get('username'))
+>>>>>>> Stashed changes
 
 #unauthorized
 @app.errorhandler(401)
