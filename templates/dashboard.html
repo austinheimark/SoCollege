@@ -44,7 +44,9 @@
 							<td>{{ post.the_user }}</td>
 							<td>
 								<form method="post" action="/accept_offer">
-									<input type="hidden" value="{{ id_number }}" name="post-interested">
+									<input type="hidden" value="{{ id_number }}" name="id_number">
+									<input type="hidden" value="{{ name }}" name="name">
+									<input type="hidden" value="{{ post.title }}" name="title">
 									<button class="btn btn-xs btn-primary" type="submit">Yes</button>
 								</form>
 							</td>
@@ -62,7 +64,7 @@
 					<tr>
 						<th>Title</th>
 						<th>Date</th>
-						<th>Operations</th>
+						<th>Actions</th>
 					</tr>
 					{% if posts %}
 					{% for post in user_posts %}

@@ -211,7 +211,7 @@ def newpost_authentication():
         location=request.form['location'], 
         date=request.form['date'],
         the_user=session.get('username')
-            )
+        )
 
     new_post.author = u
     db.session.add(new_post)
@@ -241,18 +241,21 @@ def deletepost_authenticate():
 
 @app.route("/accept_offer", methods=['POST'])
 def accept_offer():
-    pass
+    customer = request.form['id_number']
+    name = request.form['name']
+    title = request.form['title']
+
 
 @app.route("/delete_profile", methods=['POST'])
 def delete_profile():
     pass
 
-@app.route("/user/<username>")
-def user(username=session.get('username')):
-    if not session.get('username'):
-        abort(401)
+# @app.route("/user/<username>")
+# def user(username=session.get('username')):
+#     if not session.get('username'):
+#         abort(401)
 
-    return render_template('user.html',page=session.get('username'))
+#     return render_template('user.html',page=session.get('username'))
 
 #unauthorized
 @app.errorhandler(401)
