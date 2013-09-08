@@ -43,7 +43,9 @@ class Post(db.Model):
     pay = db.Column(db.String)
     location = db.Column(db.String)
     date = db.Column(db.String)
+    the_user = db.Column(db.String)
     author_id = db.Column(db.String, db.ForeignKey('user.username'))
+
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -196,7 +198,8 @@ def newpost_authentication():
         description=request.form['description'], 
         pay=request.form['pay'], 
         location=request.form['location'], 
-        date=request.form['date']
+        date=request.form['date'],
+        the_user=session.get('username')
             )
 
     new_post.author = u
@@ -205,6 +208,22 @@ def newpost_authentication():
 
     flash('Post successfully added!')
     return redirect(url_for('dashboard'))
+
+@app.route("/editprofile")
+def editprofile():
+    if not session.get('username'):
+        abort(401)
+
+    return render_template('editprofile.html', page='Edit Profile', posts=posts)
+
+@app.route("/editprofile/deletepost")
+def deletepost():
+    if not session.get('username'):
+        abort(401)
+    
+    posts = Post.query.filter_by(username=session.get('username'))
+
+
 
 #unauthorized
 @app.errorhandler(401)
