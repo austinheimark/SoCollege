@@ -21,6 +21,8 @@
 		<ul class="nav navbar-nav">
 			{% if 'username' in session %}
 			<li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+			<li><a href="{{ url_for('newpost') }}">New Post</a></li>
+
 			{% endif %}
 		</ul>
 		{% if 'username' in session %}

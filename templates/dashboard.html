@@ -7,32 +7,15 @@
 				<li><small>School</small></li>
 			</ul>
 		</div>
-		<div class="main">
-			<table border="1">
-				<tr>
-					<th>Recipe</th>
-					<th>Rating</th>
-					<th>Price</th>
-					<th>Skill (out of 10)</th>
-				</tr>
-				<tr>
-					<td>Rice</td>
-					<td># of stars</td>
-					<td>$1.50</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>Beans</td>
-					<td># of stars</td>
-					<td>$3.00</td>
-					<td>4</td>
-				</tr>
-				<tr>
-					<td>Soup</td>
-					<td># of stars</td>
-					<td>$4.50</td>
-					<td>6</td>
-				</tr>
-			</table>
-		</div>
+	<div class="main">
+	{% for post in posts %}
+		<h1>{{ post.title }}</h1>
+		<p>{{ post.description }}</p>
+		<ul>
+			<li>Date: {{ post.date }}</li>
+			<li>Location: {{ post.location }}</li>
+			<li>Pay: {{ post.pay }}</li>
+		</ul>
+	{% endfor %}
+	</div>
 {% endblock %}

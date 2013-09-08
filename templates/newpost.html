@@ -1,9 +1,13 @@
-<div>
+{% extends "layout.html" %}
+{% block content %}<div>
 <form role="form" method="post" action="/newpost/authenticate">
-
-	Post title: <input type="text" name="title" placeholder="Post title">
-	Post description: <input type="textarea" name="description">
-	Post pay: <input>
+	<h2>Enter posting information here.</h2><br>
+	Title: <input type="text" name="title" placeholder="Post title"><br>
+	Description: <input cols="40" rows="5" type="textarea" name="description"><br>
+	Pay: <input type="text" name="pay"><br>
+	Location: <input type="text" name="location">
+	Date: <input type="text" name="date">
 	<button type="submit">Create your post!</button>
 </form>
 </div>
+{% endblock %}
