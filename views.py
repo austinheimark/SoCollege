@@ -52,7 +52,7 @@ def home():
 @app.route("/dashboard")
 def dashboard(page="Dashboard"):
     #ensure that the user is logged in
-    if not session.get('username'):
+    if not session.get('username'): 
         abort(401)
 
     return render_template('dashboard.html', page=page)
@@ -94,13 +94,13 @@ def signup_authenticate():
     new_user = User(request.form['username'], request.form['email'], encrypted.hexdigest())    
     db.session.add(new_user)
     db.session.commit()
-    flash('You successfully signed up')
 
     #will need to set the session information so that the user is logged in here
     session['username'] = request.form['username']
 
     # redirect user to venmo login
     if session.get('venmo_token'):
+        flash("You have successfully logged into your Venmo, %s" % session.get('venmo_token'))
         return redirect(url_for('dashboard'))
     else:
         return redirect('https://api.venmo.com/oauth/authorize?client_id=%s&scope=make_payments,access_profile&response_type=code' % CONSUMER_KEY)
@@ -122,8 +122,16 @@ def oauth_authorized():
 
     session['venmo_token'] = access_token
     session['venmo_username'] = user['username']
+    session['venmo_name'] = user['name']
+    session['venmo_firstname'] = user['firstname']
+    session['venmo_lastname'] = user['lastname']
+    session['venmo_picture'] = user['picture']
+    session['venmo_email'] = user['email']
+    session['venmo_phone'] = user['phone']
+    session['venmo_balance'] = user['balance']
+    session['venmo_id'] = user['id']
 
-    flash("You were signed")
+    flash("You have successfully logged into your Venmo, %s" % session.get('venmo_token'))
     return redirect(url_for('dashboard'))
 
 @app.route("/signin")
@@ -156,9 +164,10 @@ def signin_authenticate():
 def signout(page="Sign out"):
     #pop the session
     session.pop('username', None)
+    session.pop('venmo_token', None)
     return render_template('signout.html', page=page)
 
-@app.route("/newpost")
+@app.route("/newpost", methods=['POST'])
 def newpost(page="New Post"):
     #make sure the user is logged in
     if not session.get('username'):
