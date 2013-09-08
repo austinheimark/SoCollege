@@ -6,7 +6,8 @@ from flask import (
     request,
     session,
     flash,
-    abort
+    abort,
+    g
     )
 from constants import CONSUMER_KEY, CONSUMER_SECRET, APP_SECRET_KEY
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -19,7 +20,6 @@ import requests
 app = Flask(__name__)
 app.debug = True
 app.secret_key = APP_SECRET_KEY
-#app.config.from_object(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
@@ -43,7 +43,7 @@ class Post(db.Model):
     pay = db.Column(db.String)
     location = db.Column(db.String)
     date = db.Column(db.String)
-    user = db.Column(db.Integer, db.ForeignKey('user.username'))
+    author_id = db.Column(db.String, db.ForeignKey('user.username'))
 
 @app.route("/")
 def home():
@@ -55,7 +55,9 @@ def dashboard(page="Dashboard"):
     if not session.get('username'): 
         abort(401)
 
-    return render_template('dashboard.html', page=page)
+    posts = Post.query.all()
+    
+    return render_template('dashboard.html', page=page, posts=posts)
 
 @app.route("/signup")
 def signup(page="Sign up"):
@@ -175,10 +177,36 @@ def newpost(page="New Post"):
 
     return render_template('newpost.html')
 
+@app.route("/newpost/authenticate", methods=['POST'])
+def newpost_authentication():
+    #gotta be logged in
+    if not session.get('username'):
+        abort(401)
+
+    #make sure the user entered all the form data
+
+    u = User.query.filter_by(username=session.get('username')).first()
+
+    #create a new post linked to that user with the data
+    new_post = Post(
+        title=request.form['title'], 
+        description=request.form['description'], 
+        pay=request.form['pay'], 
+        location=request.form['location'], 
+        date=request.form['date']
+            )
+
+    new_post.author = u
+    db.session.add(new_post)
+    db.session.commit()
+
+    flash('Post successfully added!')
+    return redirect(url_for('dashboard'))
+
 #unauthorized
 @app.errorhandler(401)
 def unauthorized_page(error):
-    return render_template('401.html'), 401
+    return render_template('401.htmgl'), 401
 
 #not found
 @app.errorhandler(404)
