@@ -191,7 +191,7 @@ def newpost(page="New Post"):
     if not session.get('username'):
         abort(401)
 
-    return render_template('newpost.html')
+    return render_template('newpost.html', page=page)
 
 @app.route("/newpost/authenticate", methods=['POST'])
 def newpost_authentication():

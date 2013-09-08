@@ -1,14 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
+<div class="page-header"><h1>New post</h1></div>
 <form role="form" method="post" action="/newpost/authenticate">
-	<h2>Enter posting information here.</h2><br>
-	Title: <input type="text" name="title" placeholder="Post title"><br>
-	Description: <input cols="40" rows="5" type="textarea" name="description"><br>
-	Pay: <input type="text" name="pay"><br>
-	Location: <input type="text" name="location">
-	Date: <input type="text" name="date">
-	<button type="submit">Create your post!</button>
+	<div class="form-group">
+		<label>Title</label>
+		<input type="text" class="form-control" name="title">
+	</div>
+	<div class="form-group">
+		<label>Description</label>
+		<textarea rows="5" class="form-control" name="description"></textarea>
+	</div>
+	<div class="form-group">
+		<label>Pay</label>
+		<input type="number" class="form-control" name="pay">
+	</div>
+	<div class="form-group">
+		<label>Location</label>
+		<input type="text" class="form-control" name="location">
+	</div>
+	<div class="form-group">
+		<label>Date</label>
+		<input type="date" class="form-control" name="date">
+	</div>
+	<button type="submit" class="btn btn-primary btn-large">Create</button>
 </form>
-</div>
 {% endblock %}
