@@ -57,8 +57,17 @@ def dashboard(page="Dashboard"):
         abort(401)
 
     posts = Post.query.all()
-    
-    return render_template('dashboard.html', page=page, posts=posts)
+    username = session.get('venmo_username')
+    name = session.get('venmo_name')
+    firstname = session.get('venmo_firstname')
+    lastname = session.get('venmo_lastname')
+    picture = session.get('venmo_picture')
+    email = session.get('venmo_email')
+    phone = session.get('venmo_phone')
+    balance = session.get('venmo_balance')
+    id_number = session.get('venmo_id')
+
+    return render_template('dashboard.html', page=page, posts=posts, username=username, name=name, firstname=firstname, lastname=lastname, picture=picture, email=email, phone=phone, balance=balance, id_number=id_number)
 
 @app.route("/signup")
 def signup(page="Sign up"):
