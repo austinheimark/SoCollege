@@ -18,14 +18,11 @@
 		<a class="navbar-brand" href="{{ url_for('home') }}">MerpIt!</a>
 	</div><!--/.navbar-header-->
 	<div class="collapse navbar-collapse">
+		{% if 'username' in session %}
 		<ul class="nav navbar-nav">
-			{% if 'username' in session %}
 			<li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
 			<li><a href="{{ url_for('newpost') }}">New Post</a></li>
-
-			{% endif %}
 		</ul>
-		{% if 'username' in session %}
 		<div class="navbar-right">
 			<p class="navbar-text"><i class="icon-user"></i>&nbsp;{{session['username']}}</p>
 			<a class="btn btn-default navbar-btn" href="{{ url_for('signout') }}">Sign out</a>
