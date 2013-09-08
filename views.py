@@ -1,3 +1,4 @@
+
 from flask import (
     Flask, 
     render_template,
@@ -261,7 +262,8 @@ def accept_offer():
 
     #now, complete the venmo transaction
 
-
+    #need to notify that other user that they have asked to do their offer
+    
 
     flash('Succesful deal!')
     return redirect(url_for('dashboard'))
@@ -269,8 +271,9 @@ def accept_offer():
 @app.route("/pay_customer", methods=['POST'])
 def pay_customer():
     instance = Deal.query.get(request.form['title'])
-    print instance.post_title
-    print instance.id_number
+
+
+
     return redirect('https://venmo.com/?txn=Pay&recipients='+str(instance.id_number)+'&amount='+instance.post_title+'&note=Payed%20from%20MerpIt')
 
 @app.route("/delete_profile", methods=['POST'])
