@@ -32,6 +32,7 @@
 						<th>Pay</th>
 						<th>Date</th>
 						<th>User</th>
+						<th>Interested</th>
 					</tr>
 					{% if posts %}
 						{% for post in posts %}
@@ -41,6 +42,12 @@
 							<td>{{ post.pay }}</td>
 							<td>{{ post.date }}</td>
 							<td>{{ post.the_user }}</td>
+							<td>
+								<form method="post" action="#">
+									<input type="hidden" value="{{ post.title }}" name="post-interested">
+									<button class="btn btn-primary" type="submit">Yes</button>
+								</form>
+							</td>
 						</tr>
 						{% endfor %}
 					{% else %}
