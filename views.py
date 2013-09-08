@@ -223,16 +223,28 @@ def editprofile():
     if not session.get('username'):
         abort(401)
 
-    return render_template('editprofile.html', page='Edit Profile', posts=posts)
+    return render_template('editprofile.html', page='Edit Profile')
 
-@app.route("/editprofile/deletepost")
+@app.route("/deletepost")
 def deletepost():
     if not session.get('username'):
         abort(401)
     
-    posts = Post.query.filter_by(username=session.get('username'))
+    posts = Post.query.filter_by(the_user=session.get('username'))
 
+    return render_template('deletepost.html', page='Delete post', posts=posts)
 
+@app.route("/deletepost/authenticate", methods=['POST'])
+def deletepost_authenticate():
+    if not session.get('username'):
+        abort(401)
+
+    delete_this = Post.query.get(request.form['post-delete'])
+    db.session.delete(delete_this)
+    db.session.commit()
+
+    flash('Image successfully deleted!')
+    return redirect(url_for('editprofile'))
 
 #unauthorized
 @app.errorhandler(401)

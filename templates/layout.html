@@ -22,6 +22,8 @@
 		<ul class="nav navbar-nav">
 			<li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
 			<li><a href="{{ url_for('newpost') }}">New Post</a></li>
+			<li><a href="{{ url_for('editprofile') }}">Edit Profile</a></li>
+
 		</ul>
 		<div class="navbar-right">
 			<p class="navbar-text"><i class="icon-user"></i>&nbsp;{{session['username']}}</p>
