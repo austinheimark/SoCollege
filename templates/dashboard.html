@@ -76,7 +76,11 @@
 						<form action="/pay_customer" method="post">
 							<button class="btn btn-xs btn-primary" type="submit"><input type="hidden" name="title" value="{{ post.title }}">Pay</button>
 						</form>
-						</td
+						</td>
+						<td>
+						<form action="/deletepost/authenticate" method="post">
+	<button class="btn btn-xs btn-primary" type="submit"><input type="hidden" name="title" value="{{ post.title }}">Delete</button>	
+						</td>
 					</tr>
 					{% endfor %}
 					{% else %}

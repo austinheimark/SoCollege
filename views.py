@@ -241,7 +241,7 @@ def deletepost_authenticate():
     if not session.get('username'):
         abort(401)
 
-    delete_this = Post.query.get(request.form['post-delete'])
+    delete_this = Post.query.get(request.form['title'])
     db.session.delete(delete_this)
     db.session.commit()
 
