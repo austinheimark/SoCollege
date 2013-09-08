@@ -69,10 +69,10 @@
 					<tr>
 						<td>{{ post.title }}</td>
 						<td>{{ post.date }}</td>
-						<td class="btn-group">
+						<td><div class="btn-group">
 							<button class="btn btn-xs btn-primary" formmethod="post" name="pay" type="submit">Pay</button>
 							<button class="btn btn-xs" formmethod="post" value="{{ post.title }}" name="post-delete" action="deletepost/authenticate" type="submit">Delete</button>
-						</td>
+						</div></td>
 					</tr>
 					{% endfor %}
 					{% else %}
