@@ -239,6 +239,21 @@ def deletepost_authenticate():
     flash('Image successfully deleted!')
     return redirect(url_for('dashboard'))
 
+@app.route("/accept_offer", methods=['POST'])
+def accept_offer():
+    pass
+
+@app.route("/delete_profile", methods=['POST'])
+def delete_profile():
+    pass
+
+@app.route("/user/<username>")
+def user(username=session.get('username')):
+    if not session.get('username'):
+        abort(401)
+
+    return render_template('user.html',page=session.get('username'))
+
 #unauthorized
 @app.errorhandler(401)
 def unauthorized_page(error):

@@ -39,11 +39,11 @@
 						<tr>
 							<td>{{ post.title }}</td>
 							<td>{{ post.description }}</td>
-							<td>{{ post.pay }}</td>
+							<td>${{ post.pay }}</td>
 							<td>{{ post.date }}</td>
 							<td>{{ post.the_user }}</td>
 							<td>
-								<form method="post" action="#">
+								<form method="post" action="">
 									<input type="hidden" value="{{ post.title }}" name="post-interested">
 									<button class="btn btn-xs btn-primary" type="submit">Yes</button>
 								</form>
